@@ -20,6 +20,7 @@ from django.urls import path
 from rest_framework import routers
 from principal.views import SolicitudViewSet
 from django.conf.urls import include
+from principal import views
 
 
 router = routers.DefaultRouter()
@@ -28,6 +29,8 @@ router.register(r'solicitudes', SolicitudViewSet, basename='solicitudes')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('register', views.register),
+
 ]+ static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

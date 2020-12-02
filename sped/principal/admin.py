@@ -21,7 +21,7 @@ class ActividadDeportivaAdmin(admin.ModelAdmin):
     list_display=("id","nombre","descripcion")  
 
 class  SolicitudAdmin(admin.ModelAdmin):
-    list_display=("id","nombre","tiposolicitante","direccion","barrio","correo","tipoidentificacion","telefono","sexo","discapacidad","adjuntocedula","adjuntorut","escenario","tipoevento","actividaddeportiva","descripcion","eventodeportivo", "fecha_creacion", "fecha_modificacion", "fecha_vencimiento")
+    list_display=("id","nombre","tiposolicitante","direccion","barrio","correo","tipoidentificacion","telefono","sexo","discapacidad","adjuntocedula","adjuntorut","escenario","tipoevento","actividaddeportiva","descripcion","eventodeportivo", "fecha_creacion", "fecha_modificacion", "fecha_vencimiento","estado")
 
 admin.site.register(models.Solicitud, SolicitudAdmin)
 admin.site.register(models.Regimen, RegimenAdmin)
