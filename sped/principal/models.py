@@ -84,8 +84,8 @@ class Solicitud(models.Model):
     eventodeportivo = models.ForeignKey(Regimen, default="", on_delete=models.CASCADE)
     fecha_creacion = models.DateField('Fecha de creación',auto_now= False, auto_now_add = True)
     fecha_modificacion = models.DateField('Fecha de creación',auto_now= True, auto_now_add = False)
-    fecha_inicio= models.DateField('Fecha de inicio de la reserva',auto_now= False, auto_now_add = False, null=True, blank = True)
-    fecha_vencimiento = models.DateField('Fecha de vencimiento de la reserva',auto_now= False, auto_now_add = False, null=True, blank = True)
+    fecha_inicio= models.DateTimeField('Fecha de inicio de la reserva',auto_now= False, auto_now_add = False, null=True, blank = True)
+    fecha_vencimiento = models.DateTimeField('Fecha de vencimiento de la reserva',auto_now= False, auto_now_add = False, null=True, blank = True)
     def __str__(self):
         return (self.nombre)
     class Meta:
