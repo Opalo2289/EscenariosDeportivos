@@ -18,18 +18,23 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
 from rest_framework import routers
-from principal.views import SolicitudViewSet
 from django.conf.urls import include
-from principal import views
-
+from principal.views import *
 
 router = routers.DefaultRouter()
 router.register(r'solicitudes', SolicitudViewSet, basename='solicitudes')
+router.register(r'tiposolicitantes', TipoSolicitanteViewSet, basename='tiposolicitantes')
+router.register(r'disciplinasdeportivas', DisciplinaDeportivaViewSet, basename='disciplinasdeportivas')
+router.register(r'escenariosdeportivos', EscenarioDeportivoViewSet, basename='escenariosdeportivos')
+router.register(r'actividaddeportiva', ActividadDeportivaViewSet, basename='actividaddeportiva')
+router.register(r'discapacidades', DiscapacidadViewSet, basename='discapacidades')
+router.register(r'regimenes', RegimenViewSet, basename='regimenes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('register', views.register),
+    path('register', register),
+    path('calendario/',ListadoLibrosReservados.as_view(), name = 'calendario'),
 
 ]+ static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 
