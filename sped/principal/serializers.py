@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from principal import models
+from drf_base64.serializers import ModelSerializer
 
 class TipoSolicitanteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +32,7 @@ class RegimenSerializer(serializers.ModelSerializer):
         model = models.Regimen
         fields = "__all__"
 
-class SolicitudSerializer(serializers.ModelSerializer):
+class SolicitudSerializer(ModelSerializer):
     class Meta:
         model = models.Solicitud
         fields = "__all__"        
