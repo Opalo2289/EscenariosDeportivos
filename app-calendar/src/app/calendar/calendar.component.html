@@ -1,0 +1,110 @@
+<!-- <button class="btn btn-primary" (click)="enviarEvento()">Enviar evento</button> -->
+<button class="btn btn-primary" (click)="open(content)">Crear evento</button>
+<full-calendar [options]="calendarOptions"></full-calendar>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Crear evento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form-modal" [formGroup]="formControlCalendar" (ngSubmit)="enviarEvento()">
+            <div class="form-group">
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="text" class="form-control" formControlName="cedula" placeholder="Cedula">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="text" class="form-control" formControlName="direccion" placeholder="Direccion">
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="text" class="form-control" formControlName="barrio" placeholder="Barrio">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="text" class="form-control" formControlName="correo" placeholder="Correo">
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configTipoId">
+                        <ngx-select-dropdown formControlName="tipoidentificacion" [config]="configTipoId" [options]="array_tipo_id"></ngx-select-dropdown>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configSexo">
+                        <ngx-select-dropdown formControlName="sexo" [config]="configSexo" [options]="array_sexo"></ngx-select-dropdown>
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="tel" pattern="^[0-9]*$" class="form-control" formControlName="telefono" placeholder="Télefono">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configtiposolicitante">
+                        <ngx-select-dropdown formControlName="tiposolicitante" [config]="configtiposolicitante" [options]="array_tiposolicitante"></ngx-select-dropdown>
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configdiscapacidad">
+                        <ngx-select-dropdown formControlName="discapacidad" [config]="configdiscapacidad" [options]="array_discapacidad"></ngx-select-dropdown>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configescenario">
+                        <ngx-select-dropdown formControlName="escenario" [config]="configescenario" [options]="array_escenario"></ngx-select-dropdown>
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configtipoevento">
+                        <ngx-select-dropdown formControlName="tipoevento" [config]="configtipoevento" [options]="array_tipoevento"></ngx-select-dropdown>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configactividaddeportiva">
+                        <ngx-select-dropdown formControlName="actividaddeportiva" [config]="configactividaddeportiva" [options]="array_actividaddeportiva"></ngx-select-dropdown>
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6" *ngIf="configeventodeportivo">
+                        <ngx-select-dropdown formControlName="eventodeportivo" [config]="configeventodeportivo" [options]="array_eventodeportivo"></ngx-select-dropdown>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Fecha de inicio" formControlName="fecha_inicio" ngbDatepicker #fecha_inicio="ngbDatepicker" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="fecha_inicio.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Fecha de vencimiento" formControlName="fecha_vencimiento" ngbDatepicker #fecha_vencimiento="ngbDatepicker" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="fecha_vencimiento.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="file" accept="image/*, .pdf" class="form-control file-input" formControlName="adjuntocedula" placeholder="adjuntocedula">
+                    </div>
+                    <div class="mb-2 col-12 col-lg-6">
+                        <input type="file" accept="image/*, .pdf" class="form-control file-input" formControlName="adjuntorut" placeholder="adjuntorut">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-12">
+                        <textarea class="form-control" formControlName="descripcion" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" [disabled]="formControlCalendar?.invalid" (click)="modal.close('Save click')">Crear</button>
+                <!-- <button type="submit" class="btn btn-success" (click)="modal.close('Save click')">Crear</button> -->
+            </div>
+        </form>
+    </div>
+</ng-template>
