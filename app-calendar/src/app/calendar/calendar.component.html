@@ -71,28 +71,26 @@
                 </div>
                 <div class="row mb-4">
                     <div class="mb-2 col-12 col-lg-6">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Fecha de inicio" formControlName="fecha_inicio" ngbDatepicker #fecha_inicio="ngbDatepicker" readonly>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="fecha_inicio.toggle()" type="button"></button>
-                            </div>
-                        </div>
+                        <app-date-time-picker placeholder="Fecha de inicio" formControlName="fecha_inicio"></app-date-time-picker>  
                     </div>
                     <div class="mb-2 col-12 col-lg-6">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Fecha de vencimiento" formControlName="fecha_vencimiento" ngbDatepicker #fecha_vencimiento="ngbDatepicker" readonly>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="fecha_vencimiento.toggle()" type="button"></button>
-                            </div>
-                        </div>
+                        <app-date-time-picker placeholder="Fecha de vencimiento" formControlName="fecha_vencimiento"></app-date-time-picker>  
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="mb-2 col-12 col-lg-6">
-                        <input type="file" accept="image/*, .pdf" class="form-control file-input" formControlName="adjuntocedula" placeholder="adjuntocedula">
+                        <div class="image-upload">
+                            <label for="imageUrl">
+                                <img [src]="formControlCalendar?.get('adjuntocedula')?.value" class="img-fluid"/>
+                                <input class="d-none" id="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event, 'adjuntocedula')" />
+                            </label>
+                        </div> 
                     </div>
                     <div class="mb-2 col-12 col-lg-6">
-                        <input type="file" accept="image/*, .pdf" class="form-control file-input" formControlName="adjuntorut" placeholder="adjuntorut">
+                        <label for="imageUrlrut" class="image-upload">
+                            <img [src]="formControlCalendar?.get('adjuntorut')?.value" class="img-fluid"/>
+                            <input class="d-none" id="imageUrlrut" type="file" accept="image/*" (change)="handleInputChange($event, 'adjuntorut')" />
+                        </label>
                     </div>
                 </div>
                 <div class="row">
@@ -103,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success" [disabled]="formControlCalendar?.invalid" (click)="modal.close('Save click')">Crear</button>
-                <!-- <button type="submit" class="btn btn-success" (click)="modal.close('Save click')">Crear</button> -->
+                <!-- <button type="submit" class="btn btn-success">Crear</button> -->
             </div>
         </form>
     </div>

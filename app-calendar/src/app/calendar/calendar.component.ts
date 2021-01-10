@@ -47,6 +47,9 @@ export class CalendarComponent implements OnInit {
   public array_eventodeportivo:Array<Object> = null;
   public configeventodeportivo:Object = null;
 
+  private hoy:string = this.formatDateDjango();
+  private imgdefault:string = 'https://ec.europa.eu/eurostat/documents/6921402/9104237/Shutterstock_Lisa_Kolbasa.png/f988f8b6-4138-4a91-9761-885bacab0ce2?t=1533725002000';
+
   public formControlCalendar:FormGroup = new FormGroup({
     nombre: new FormControl('', Validators.compose([Validators.required])),
     cedula: new FormControl('', Validators.compose([Validators.required])),
@@ -56,11 +59,11 @@ export class CalendarComponent implements OnInit {
     tipoidentificacion: new FormControl('', Validators.compose([Validators.required])),
     telefono: new FormControl('', Validators.compose([Validators.pattern('^[0-9]*$')])),
     sexo: new FormControl(null),
-    adjuntocedula: new FormControl(null),
-    adjuntorut: new FormControl(null),
+    adjuntocedula: new FormControl(this.imgdefault),
+    adjuntorut: new FormControl(this.imgdefault),
     descripcion: new FormControl(null),
-    fecha_inicio: new FormControl(null, Validators.compose([Validators.required])),
-    fecha_vencimiento: new FormControl(null, Validators.compose([Validators.required])),
+    fecha_inicio: new FormControl(this.hoy, {validators: [Validators.required, DateTimeValidator]}),
+    fecha_vencimiento: new FormControl(this.hoy, {validators: [Validators.required, DateTimeValidator]}),
     estado: new FormControl(1, Validators.compose([Validators.required])),
     tiposolicitante: new FormControl(null, Validators.compose([Validators.required])),
     discapacidad: new FormControl(null, Validators.compose([Validators.required])),
@@ -68,13 +71,13 @@ export class CalendarComponent implements OnInit {
     tipoevento: new FormControl(null, Validators.compose([Validators.required])),
     actividaddeportiva: new FormControl(null, Validators.compose([Validators.required])),
     eventodeportivo: new FormControl(null, Validators.compose([Validators.required]))
-  });
+  }, { updateOn: 'change' });
 
   public hoveredDate: NgbDate | null = null;
   public fromDate: NgbDate;
   public toDate: NgbDate | null = null;
-
-
+  private imgFormCurrent:string = '';
+  
   constructor(
     private calendarService:CalendarService,
     private modalService: NgbModal,
@@ -280,10 +283,8 @@ export class CalendarComponent implements OnInit {
     dataenviar.tipoevento = dataenviar.tipoevento.id;
     dataenviar.actividaddeportiva = dataenviar.actividaddeportiva.id;
     dataenviar.eventodeportivo = dataenviar.eventodeportivo.id;
-    dataenviar.fecha_inicio = `${dataenviar.fecha_inicio.year}-${dataenviar.fecha_inicio.month}-${dataenviar.fecha_inicio.day}T00:00:00.00Z`;
-    dataenviar.fecha_vencimiento = `${dataenviar.fecha_vencimiento.year}-${dataenviar.fecha_vencimiento.month}-${dataenviar.fecha_vencimiento.day}T00:00:00.00Z`;
-    dataenviar.adjuntocedula = null;
-    dataenviar.adjuntorut = null;
+    dataenviar.adjuntocedula != this.imgdefault ? dataenviar.adjuntocedula : null;
+    dataenviar.adjuntorut != this.imgdefault ? dataenviar.adjuntorut : null;
     
     this.calendarService.setEvent(dataenviar)
     .subscribe(request => {
@@ -333,4 +334,43 @@ export class CalendarComponent implements OnInit {
     return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
 
+  handleInputChange(e, form:string) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    this.imgFormCurrent = form;
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.formControlCalendar.get(`${this.imgFormCurrent}`).setValue(reader.result);
+    this.formControlCalendar.get(`${this.imgFormCurrent}`).updateValueAndValidity();
+  }
+
+  formatDateDjango() {
+    let d = new Date(),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    let fecha = [year, month, day].join('-');
+    return fecha+'T'+d.toTimeString().split(' ')[0]+'.'+d.getMilliseconds()
+  }
+
 }
+
+export const DateTimeValidator = (fc: FormControl) => {
+  const date = new Date(fc.value);
+  const isValid = !isNaN(date.valueOf());
+  return isValid ? null : {
+      isValid: {
+          valid: false
+      }
+  };
+};

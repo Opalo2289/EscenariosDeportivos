@@ -14,7 +14,9 @@ import listPlugin from '@fullcalendar/interaction';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from './calendar/calendar.component'; // a plugin
 import { HttpClientModule } from "@angular/common/http";
-import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { DateTimePickerComponent } from './components/date-time-picker/date-time-picker.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin, 
@@ -27,7 +29,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent
+    CalendarComponent,
+    DateTimePickerComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
