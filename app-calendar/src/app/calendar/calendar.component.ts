@@ -4,6 +4,7 @@ import { CalendarOptions, EventSourceInput } from '@fullcalendar/angular'; // us
 import { icalendarApi } from './calendar';
 import { CalendarService } from './services/calendar.service';
 import {NgbModal, ModalDismissReasons, NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+/* import { MessageService } from '../message.service' */
 
 
 @Component({
@@ -70,7 +71,8 @@ export class CalendarComponent implements OnInit {
     escenario: new FormControl(null, Validators.compose([Validators.required])),
     tipoevento: new FormControl(null, Validators.compose([Validators.required])),
     actividaddeportiva: new FormControl(null, Validators.compose([Validators.required])),
-    eventodeportivo: new FormControl(null, Validators.compose([Validators.required]))
+    eventodeportivo: new FormControl(null, Validators.compose([Validators.required])),
+    check: new FormControl('')
   }, { updateOn: 'change' });
 
   public hoveredDate: NgbDate | null = null;
@@ -81,6 +83,7 @@ export class CalendarComponent implements OnInit {
   constructor(
     private calendarService:CalendarService,
     private modalService: NgbModal,
+    /* private messageService: MessageService, */
     private calendar: NgbCalendar
   ) {
     this.fromDate = calendar.getToday();
@@ -290,6 +293,8 @@ export class CalendarComponent implements OnInit {
     .subscribe(request => {
       this.loadCalendar();
     });
+    return alert('SOLICITUD DE PRERESERVA REALIZADA CON  ÉXITO CONSULTE EN 15 DIAS HÁBILES CON SU NÚMERO DE CEDULA.');
+    /* this.messageService.openSnackBar(`SOLICITUD DE PRERESERVA REALIZADA CON  ÉXITO CONSULTE EN 15 DIAS HÁBILES CON SU NÚMERO DE CEDULA.`, `Aceptar`); */
   }
 
   open(content) {
