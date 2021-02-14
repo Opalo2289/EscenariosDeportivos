@@ -15,7 +15,7 @@ class DisciplinaDeportivaAdmin(admin.ModelAdmin):
     list_display=("id","nombre","descripcion")  
 
 class EscenarioDeportivoAdmin(admin.ModelAdmin):
-    list_display=("id","nombre","descripcion")  
+    list_display=("id","nombre","descripcion","foto1","foto2")  
 
 class ActividadDeportivaAdmin(admin.ModelAdmin):
     list_display=("id","nombre","descripcion")  
