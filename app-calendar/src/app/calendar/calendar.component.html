@@ -71,14 +71,16 @@
                 </div>
                 <div>
                     <p>
-                        Marque la casilla si acepta las condiciones establecidas en la política de tratamiento de información de la Alcaldía de Popayán que puede leer en el siguiente:  Políticas establecida por la entidad-INRED  
+                        Marque la casilla si acepta las condiciones establecidas en la política de tratamiento de información de la Alcaldía de Popayán que puede leer en el siguiente vínculo:   
+                        <a href="https://www.inredsantamarta.gov.co/politicas-y-lineamientos/politica-de-tratamientos-de-datos-personales">Políticas establecida por la entidad-INRED</a>
                     </p>
-                    <a href="https://www.inredsantamarta.gov.co/politicas-y-lineamientos/politica-de-tratamientos-de-datos-personales">site</a>
                 </div>
+
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitches">
-                    <label class="custom-control-label" for="customSwitches">status</label>
-                  </div>
+                    <input type="checkbox" class="custom-control-input" id="customSwitches" formControlName="check">
+                    <label class="custom-control-label" for="customSwitches">Aceptar políticas</label>
+                </div>
+
                 <div class="row mb-4">
                     <div class="mb-2 col-12 col-lg-6">
                         <app-date-time-picker placeholder="Fecha de inicio" formControlName="fecha_inicio"></app-date-time-picker>  

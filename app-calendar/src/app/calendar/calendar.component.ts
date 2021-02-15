@@ -26,7 +26,8 @@ export class CalendarComponent implements OnInit {
 
   public array_sexo:Array<Object> = [
     {id: 1, nombre: "Masculino"},
-    {id: 2, nombre: "Femenino"}
+    {id: 2, nombre: "Femenino"},
+    {id: 3, nombre: "Otro"}
   ];
   public configSexo:Object = null;
   
@@ -72,7 +73,7 @@ export class CalendarComponent implements OnInit {
     tipoevento: new FormControl(null, Validators.compose([Validators.required])),
     actividaddeportiva: new FormControl(null, Validators.compose([Validators.required])),
     eventodeportivo: new FormControl(null, Validators.compose([Validators.required])),
-    check: new FormControl('')
+    check: new FormControl('', Validators.requiredTrue)
   }, { updateOn: 'change' });
 
   public hoveredDate: NgbDate | null = null;
@@ -277,7 +278,11 @@ export class CalendarComponent implements OnInit {
     if(this.formControlCalendar.invalid){
       return alert('Completar todos los campos');
     }
+    
     let dataenviar = this.formControlCalendar.getRawValue();
+
+    if(!dataenviar.check) return alert('Por favor acepta las políticas de tratamiento de datos.');
+
     dataenviar.tipoidentificacion = dataenviar.tipoidentificacion.nombre;
     dataenviar.sexo = dataenviar.sexo.nombre;
     dataenviar.tiposolicitante = dataenviar.tiposolicitante.id;
@@ -288,7 +293,7 @@ export class CalendarComponent implements OnInit {
     dataenviar.eventodeportivo = dataenviar.eventodeportivo.id;
     dataenviar.adjuntocedula != this.imgdefault ? dataenviar.adjuntocedula : null;
     dataenviar.adjuntorut != this.imgdefault ? dataenviar.adjuntorut : null;
-    
+
     this.calendarService.setEvent(dataenviar)
     .subscribe(request => {
       this.loadCalendar();
