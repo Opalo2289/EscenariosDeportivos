@@ -97,9 +97,9 @@ DATABASES = {
 
         #--------------Desarrollo---------------
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sped',       
-        'USER': 'inreddos',  
-        'PASSWORD': 'inreddos_siru',  
+        'NAME': 'inreddos_sped',       
+        'USER': 'inreddos_sped',  
+        'PASSWORD': 'inreddos_sped',  
         'HOST': 'localhost', 
         'PORT': '3306',
     }
