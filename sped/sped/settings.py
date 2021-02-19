@@ -98,8 +98,8 @@ DATABASES = {
         #--------------Desarrollo---------------
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sped',       
-        'USER': 'inreddos_siru',  
-        'PASSWORD': 'inreddos',  
+        'USER': 'inreddos',  
+        'PASSWORD': 'inreddos_siru',  
         'HOST': 'localhost', 
         'PORT': '3306',
     }
