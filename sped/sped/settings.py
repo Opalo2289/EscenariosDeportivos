@@ -92,16 +92,16 @@ WSGI_APPLICATION = 'sped.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 
-        #--------------Desarrollo---------------#
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'sped',       
-        # 'USER': 'root',  
-        # 'PASSWORD': '',  
-        # 'HOST': 'localhost', 
-        # 'PORT': '3306',
+        --------------Desarrollo---------------#
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sped',       
+        'USER': 'inreddos_siru',  
+        'PASSWORD': 'inreddos_siru',  
+        'HOST': 'localhost', 
+        'PORT': '3306',
     }
 }
 
